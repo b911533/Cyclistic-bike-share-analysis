@@ -3,12 +3,11 @@
 
 # This analysis is based on the Divvy case study "'Sophisticated, Clear, and Polished’: Divvy and Data Visualization" written by Kevin Hartman (found here: https://artscience.blog/home/divvy-dataviz-case-study). The purpose of this script is to consolidate downloaded Divvy data into a single dataframe and then conduct simple analysis to help answer the key question: “In what ways do members and casual riders use Divvy bikes differently?”
 
-# # # # # # # # # # # # # # # # # # # # # # # 
-# Install required packages
-# tidyverse for data import and wrangling
-# lubridate for date functions
-# ggplot for visualization
-# # # # # # # # # # # # # # # # # # # # # # #  
+
+Install required packages
+tidyverse for data import and wrangling
+lubridate for date functions
+ggplot for visualization
 
 library(tidyverse)  #helps wrangle data
 library(lubridate)  #helps wrangle date attributes
@@ -18,28 +17,28 @@ getwd() #displays your working directory
 #=====================
 # STEP 1: COLLECT DATA
 #=====================
-# Upload Divvy datasets (csv files) here
+## Upload Divvy datasets (csv files) here
 m6_2022 <- read_csv("/Users/jimchan/googleDAcertificate/case1/data/202206-divvy-tripdata.csv")
 m7_2022 <- read_csv("/Users/jimchan/googleDAcertificate/case1/data/202207-divvy-tripdata.csv")
 m8_2022 <- read_csv("/Users/jimchan/googleDAcertificate/case1/data/202208-divvy-tripdata.csv")
 m5_2022 <- read_csv("/Users/jimchan/googleDAcertificate/case1/data/202205-divvy-tripdata.csv")
 
-#====================================================
-# STEP 2: WRANGLE DATA AND COMBINE INTO A SINGLE FILE
-#====================================================
-# Compare column names each of the files and make sure column names match
+##====================================================
+## STEP 2: WRANGLE DATA AND COMBINE INTO A SINGLE FILE
+##====================================================
+## Compare column names each of the files and make sure column names match
 colnames(m7_2022)
 colnames(m8_2022)
 colnames(m6_2022)
 colnames(m5_2022)
 
-# Inspect the dataframes and look for incongruencies
+## Inspect the dataframes and look for incongruencies
 str(m5_2022)
 str(m8_2022)
 str(m7_2022)
 str(m6_2022)
 
-# Convert ride_id and rideable_type to character so that they can stack correctly
+## Convert ride_id and rideable_type to character so that they can stack correctly
 m8_2022 <-  mutate(m8_2022, ride_id = as.character(ride_id)
                    ,rideable_type = as.character(rideable_type)) 
 m7_2022 <-  mutate(m7_2022, ride_id = as.character(ride_id)
@@ -47,7 +46,7 @@ m7_2022 <-  mutate(m7_2022, ride_id = as.character(ride_id)
 m6_2022 <-  mutate(m6_2022, ride_id = as.character(ride_id)
                    ,rideable_type = as.character(rideable_type)) 
 
-# Stack individual quarter's data frames into one data frame
+## Stack individual quarter's data frames into one data frame
 all_trips <- bind_rows(m6_2022, m7_2022, m8_2022, m5_2022)
 
 # Remove lat, long, birthyear, and gender fields as this data was dropped beginning in 2020
